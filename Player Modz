@@ -1,0 +1,68 @@
+package myservermod;
+
+import com.youthdigital.servermod.game.*;
+
+public class Player extends PlayerData {
+  
+  public Player(EntityPlayer parPlayerObject) {
+    super(parPlayerObject);
+  }
+  
+  @Override
+  public void onUpdate() {
+    /* POWER BLOCKS */
+   
+      	// red team block
+    if (Conditions.didRightClickBlock("redTeamJoin")) {
+      Actions.teleportPlayers("redTeamBase");
+    }
+    
+    		// blue team block
+     if (Conditions.didRightClickBlock("blueTeamJoin")) {
+      Actions.teleportPlayers("blueTeamBase");
+    }
+        // health block
+    if (Conditions.isStandingOnBlock("health") && Conditions.secondsGoneBy(1)) {
+      Actions.restoreHealth(3);
+      Actions.restoreHunger(2);
+    }
+          // easteregg1
+    if (Conditions.isSneakingOnBlock("easteregg1")) {
+      Actions.teleportPlayers("treehouse");
+    }  
+    
+    
+  }
+  
+  @Override
+  public void onJoinedServer(){
+    /* Joining Server */
+   
+       
+    Actions.teleportPlayers("lobbySpawn");
+    
+  }
+  
+  @Override
+  public void onStartGame() {
+    
+  }
+  
+  @Override
+  public void onResetGameToLobby() {
+    
+  }
+  
+  @Override
+  public void onRespawned() {
+    
+       // on spawn give player knockback 3 stick
+    Actions.teleportPlayers("lobbySpawn");
+    Actions.giveItems(Items.stick, Enchantment.knockback, 3);
+    Actions.clearPotions();
+    
+  }
+  
+  
+  
+}
